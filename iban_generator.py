@@ -4,12 +4,16 @@
 import argparse
 import secrets
 
-BANK_CODES = ("20041", "30002", "30003", "30004")
+BANK_BRANCHES = (
+    ("20041", "01005"),
+    ("30002", "00495"),
+    ("30003", "00050"),
+    ("30004", "00961"),
+)
 
 
 def generate_iban() -> str:
-    bank = secrets.choice(BANK_CODES)
-    branch = "00000"
+    bank, branch = secrets.choice(BANK_BRANCHES)
     account = f"{secrets.randbelow(10**11):011d}"
     rib_key = 97 - (89 * int(bank) + 15 * int(branch) + 3 * int(account)) % 97
     bban = f"{bank}{branch}{account}{rib_key:02d}"
